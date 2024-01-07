@@ -1,0 +1,80 @@
+{% comment %} 
+    Accepts:
+    - content: whatever content is passed in
+    - button_name: the name of the button dropdown
+{% endcomment %}
+
+
+<button class="btn btn-{{button_name | remove: " " |  downcase }}">
+    <span class="btn_name">{{button_name}}</span>
+    <div class="icon-show">+</div>
+    <div class="icon-hide hide">-</div>
+</button>
+<div class="content-container hide">
+    {{ content |  metafield_tag }}
+</div>
+
+<style>
+    .btn {
+        border: none;
+        width: 100%;
+        border-radius: 20px;
+        text-align: left;
+        font-size: 1em;
+        padding: 0.5em 2em;
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btn:hover {
+        cursor: pointer;
+        background-color: gray;
+    }
+
+    .icon-hide, .icon-show {
+        font-size: 1.2em;
+    }
+
+    .content-container {
+        display: block;
+        padding-left: 1em;
+    }
+
+    .hide {
+        display: none;
+    }
+
+</style>
+
+<script>
+
+    const toggleContent = (event) => {
+        const button = event.currentTarget;
+
+        const showIcon = button.querySelector(".icon-show");
+        const hideIcon = button.querySelector(".icon-hide");
+        const content = button.nextElementSibling; 
+
+        content.classList.toggle("hide");
+        showIcon.classList.toggle("hide");
+        hideIcon.classList.toggle("hide");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const buttons = document.querySelectorAll(".btn")
+
+        buttons.forEach((button) => {
+            button.removeEventListener("click", toggleContent);
+            button.addEventListener("click", toggleContent);
+        })
+    });
+
+</script>
+
+{% comment %}  The below if for the main-product.liquid file {% endcomment %}
+
+{% render 'product-info-dropdown', content: product.metafields.product_info.shipping, button_name: "Shipping" %}
+{% render 'product-info-dropdown', content: product.metafields.product_info.payment_methods, button_name: "Payment
+Methods" %}
