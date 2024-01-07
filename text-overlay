@@ -1,0 +1,22 @@
+.card__content {
+  position: absolute;
+  opacity: 0;
+  top: 45%;
+  transition: all 1s ease;
+}
+.card-wrapper .card__media {
+  transition: all 0.3s ease;
+}
+.card-wrapper:hover .card__media {
+  opacity: 0.3;
+}
+.card-wrapper:hover .card__content {
+  opacity: 0.8;
+}
+.card__content h3 {
+  font-size: 3rem;
+}
+.card__content svg {
+  width: 1em;
+}
+
