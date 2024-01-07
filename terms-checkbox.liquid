@@ -1,0 +1,25 @@
+<div id="lewis-terms-wrapper">
+    <label for="lewis-checkbox"/>
+        <input type="checkbox" id="lewis-checkbox" name="checkbox" value="true"/>
+        Please proceed if you agree to the <a href={{shop.url | append: "/policies/terms-of-service"}}>terms and conditions</a>
+    </label>
+</div>
+
+<style>
+#lewis-terms-wrapper {
+    display: block;
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const checkbox = document.getElementById('lewis-checkbox');
+        const button = document.getElementById('checkout')
+        checkbox.addEventListener('change', () => {
+            button.disabled = !checkbox.checked
+        })
+
+    })
+</script>
