@@ -1,12 +1,12 @@
 {% assign font_size_class = "text-medium" %}
 
 {% if section.settings.font_size == "small" %}
-    {% assign font_size_class = "text-small" %}
+{% assign font_size_class = "text-small" %}
 {% elsif section.settings.font_size == "medium" %}
-    {% assign font_size_class = "text-medium" %}
+{% assign font_size_class = "text-medium" %}
 {% elsif section.settings.font_size == "large" %}
-    {% assign font_size_class = "text-large" %}
-{% endif  %}
+{% assign font_size_class = "text-large" %}
+{% endif %}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
     <div class="marquee-wrapper">
@@ -20,147 +20,156 @@
 {%- style -%}
 
 
-    .marquee-wrapper {
-        border-top: {{section.settings.border_color}} solid {{section.settings.border_thickness}}px;
-        border-bottom: {{section.settings.border_color}} solid {{section.settings.border_thickness}}px;
-        overflow: hidden;
-        padding-top: {{section.settings.padding}}px;
-        padding-bottom: {{section.settings.padding}}px;
-        white-space: nowrap;
-    }
+.marquee-wrapper {
+border-top: {{section.settings.border_color}} solid {{section.settings.border_thickness}}px;
+border-bottom: {{section.settings.border_color}} solid {{section.settings.border_thickness}}px;
+overflow: hidden;
+padding-top: {{section.settings.padding}}px;
+padding-bottom: {{section.settings.padding}}px;
+white-space: nowrap;
+}
 
-    .marquee-content {
-        display: inline-block;
-        animation: marquee-animation {{section.settings.speed}}s linear infinite;
-    }
+.marquee-content {
+display: inline-block;
+animation: {% if section.settings.direction == 'left'%} marqueeRightLeft {%  else  %} marqueeLeftRight {% endif %}  {{section.settings.speed}}s linear infinite;
+}
 
-    .marquee-content.text-small {
-        font-size: 1.1rem;
-    }
+.marquee-content.text-small {
+font-size: 1.1rem;
+}
 
-    .marquee-content.text-medium {
-        font-size: 1.3rem;
-    }
+.marquee-content.text-medium {
+font-size: 1.3rem;
+}
 
-    .marquee-content.text-large {
-        font-size: 1.7rem;
-    }
+.marquee-content.text-large {
+font-size: 1.7rem;
+}
 
 
-    @keyframes marquee-animation {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(-100%);
-        }
-    }
+@keyframes marqueeRightLeft {
+0% {
+transform: translateX(0%);
+}
+100% {
+transform: translateX(-100%);
+}
+}
+
+@keyframes marqueeLeftRight {
+0% {
+transform: translateX(-100%);
+}
+100% {
+transform: translateX(0%);
+}
+}
 
 
 {%- endstyle -%}
 
 {% schema %}
 {
-  "name": "marquee",
-  "tag": "section",
-  "class": "section",
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  },
-  "settings": [
-    {
-      "type": "select",
-      "id": "direction",
-      "options": [
-        {
-          "value": "left",
-          "label": "Left"
-        },
-        {
-          "value": "right",
-          "label": "Right"
-        }
-      ],
-      "default": "left",
-      "label": "Direction"
-    },
-    {
-      "type": "text",
-      "id": "text",
-      "label": "Text"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "background-1"
-    },
-    {
-      "type": "range",
-      "id": "speed",
-      "min": 1,
-      "max": 50,
-      "step": 1,
-      "unit": "s",
-      "label": "Speed",
-      "default": 8
-    },
-    {
-      "type": "range",
-      "id": "padding",
-      "min": 0,
-      "max": 40,
-      "step": 1,
-      "unit": "px",
-      "label": "Padding",
-      "default": 4
-    },
-    {
-      "type": "header",
-      "content": "Border"
-    },
-    {
-      "type": "range",
-      "id": "border_thickness",
-      "min": 0,
-      "max": 5,
-      "step": 0.5,
-      "unit": "px",
-      "label": "Border Thickness",
-      "default": 2
-    },
-    {
-        "type": "select",
-        "id": "font_size",
-        "label": "Font Size",
-        "options": [
-            {
-                "value": "small",
-                "label": "Small"
-            },
-            {
-                "value": "medium",
-                "label": "Medium"
-            },
-            {
-                "value": "large",
-                "label": "Large"
-            }
-        ],
-        "default": "medium"
-    },
-    {
-      "type": "text",
-      "id": "border_color",
-      "label": "Border Color",
-      "default": "#000000"
-    }
-  ],
-  "presets": [
-    {
-      "name": "marquee",
-      "category": "custom"
-    }
-  ]
+"name": "marquee",
+"tag": "section",
+"class": "section",
+"disabled_on": {
+"groups": ["header", "footer"]
+},
+"settings": [
+{
+"type": "select",
+"id": "direction",
+"options": [
+{
+"value": "left",
+"label": "Left"
+},
+{
+"value": "right",
+"label": "Right"
+}
+],
+"default": "left",
+"label": "Direction"
+},
+{
+"type": "text",
+"id": "text",
+"label": "Text"
+},
+{
+"type": "color_scheme",
+"id": "color_scheme",
+"label": "t:sections.all.colors.label",
+"default": "background-1"
+},
+{
+"type": "range",
+"id": "speed",
+"min": 1,
+"max": 50,
+"step": 1,
+"unit": "s",
+"label": "Speed",
+"default": 8
+},
+{
+"type": "range",
+"id": "padding",
+"min": 0,
+"max": 40,
+"step": 1,
+"unit": "px",
+"label": "Padding",
+"default": 4
+},
+{
+"type": "header",
+"content": "Border"
+},
+{
+"type": "range",
+"id": "border_thickness",
+"min": 0,
+"max": 5,
+"step": 0.5,
+"unit": "px",
+"label": "Border Thickness",
+"default": 2
+},
+{
+"type": "select",
+"id": "font_size",
+"label": "Font Size",
+"options": [
+{
+"value": "small",
+"label": "Small"
+},
+{
+"value": "medium",
+"label": "Medium"
+},
+{
+"value": "large",
+"label": "Large"
+}
+],
+"default": "medium"
+},
+{
+"type": "text",
+"id": "border_color",
+"label": "Border Color",
+"default": "#000000"
+}
+],
+"presets": [
+{
+"name": "marquee",
+"category": "custom"
+}
+]
 }
 {% endschema %}
