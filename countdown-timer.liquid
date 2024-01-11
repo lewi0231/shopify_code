@@ -1,0 +1,59 @@
+   {% if section.blocks[0].settings.announcement_type == "countdown" %}
+        <div {{ block.shopify_attributes }}>
+          <span class="countdownText">{{section.blocks[0].settings.countdown-text}}</span>
+          <span class="countdownTimer"></span>
+          <span id="hoursInput" hidden>{{section.blocks[0].settings.hours}}</span>
+
+          </div>
+
+        <style>
+          .countdownTimer {
+            color: yellow;
+            font-weight: bold;
+          }
+        </style>
+
+        <script defer>
+          document.addEventListener("DOMContentLoaded", () => {
+            const countdownFunction = () => {
+              // Check local storage for countdown
+              let saleEndTime = localStorage.getItem("saleEndTime");
+              let hoursInput = parseInt(document.getElementById('hoursInput').textContent)
+
+              // A bit of a hack - so that the input hours can be reset
+              const prevHoursInput = parseInt(localStorage.getItem("hoursInput"))
+
+              // is the input === true and it is different to the storedValue
+              const shouldReset = (hoursInput !== prevHoursInput) 
+
+              if (!saleEndTime || shouldReset) {
+                saleEndTime = new Date().setHours(new Date().getHours() + hoursInput);
+              console.log(shouldReset)
+                localStorage.setItem("saleEndTime", saleEndTime);
+                localStorage.setItem("hoursInput", hoursInput)
+              }
+
+              const now = new Date().getTime();
+              const timeToEndOfSale = saleEndTime - now;
+
+              // calculate the remaining hours, minutes, seconds
+              const hours = Math.floor((timeToEndOfSale % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+              const minutes = Math.floor((timeToEndOfSale % (1000 * 60 * 60)) / (1000 * 60));
+              const seconds = Math.floor((timeToEndOfSale % (1000 * 60)) / 1000);
+
+              const timerElement = document.querySelector(".countdownTimer")
+              timerElement.innerHTML = `${transform(hours)} : ${transform(minutes)} : ${transform(seconds)} `
+
+              // This just restarts the timer when it runs out
+              if (timeToEndOfSale < 0) {
+                return localStorage.clear();
+              }
+            }
+
+            const transform = (value) => {
+              return value < 10 ? `0${value}` : value.toString();
+            }
+
+            setInterval(countdownFunction, 1000);
+        })
+        </script>
