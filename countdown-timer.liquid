@@ -1,11 +1,12 @@
 // THIS COMMENTED OUT CODE IS A MARKER
-//     {%- if section.blocks.size == 1 -%}
-//     <div
-//     class="announcement-bar{% if section.settings.show_social %} announcement-bar--one-announcement{% endif %}"
-//   role="region"
- //       aria-label="{{ 'sections.header.announcement' | t }}"
- //       {{ block.shopify_attributes }}
- //     >
+{% comment %}  {%- if section.blocks.size == 1 -%}
+   <div
+     class="announcement-bar{% if section.settings.show_social %} announcement-bar--one-announcement{% endif %}"
+   role="region"
+        aria-label="{{ 'sections.header.announcement' | t }}"
+       {{ block.shopify_attributes }}
+     > 
+{% endcomment %}
 
 // PLACE THE BELOW CODE DIRECTLY AFTER THE ABOVE MARKER
 {% if section.blocks[0].settings.announcement_type == "countdown" %}
