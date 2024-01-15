@@ -1,4 +1,14 @@
-   {% if section.blocks[0].settings.announcement_type == "countdown" %}
+// THIS COMMENTED OUT CODE IS A MARKER
+//     {%- if section.blocks.size == 1 -%}
+//     <div
+//     class="announcement-bar{% if section.settings.show_social %} announcement-bar--one-announcement{% endif %}"
+//   role="region"
+ //       aria-label="{{ 'sections.header.announcement' | t }}"
+ //       {{ block.shopify_attributes }}
+ //     >
+
+// PLACE THE BELOW CODE DIRECTLY AFTER THE ABOVE MARKER
+{% if section.blocks[0].settings.announcement_type == "countdown" %}
         <div {{ block.shopify_attributes }}>
           <span class="countdownText">{{section.blocks[0].settings.countdown-text}}</span>
           <span class="countdownTimer"></span>
