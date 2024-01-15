@@ -57,3 +57,39 @@
             setInterval(countdownFunction, 1000);
         })
         </script>
+
+
+// Paste the below in announcement-bar.liquid in your schema section in the blocks settings array, you may want to add the first item to the top of the array
+        {
+          "type": "select",
+          "id": "announcement_type",
+          "label": "Announcement Type",
+          "options": [
+            {
+            "value": "countdown",
+            "label": "Countdown"
+            },
+            {
+            "value": "text",
+            "label": "text"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Countdown"
+        },
+        {
+          "type": "text",
+          "id": "countdown-text",
+          "label": "Countdown Text",
+          "default": "SALE ENDS IN"
+        }, 
+        {
+        "type": "number",
+        "id": "hours",
+        "label": "Number of hours remaining",
+        "default": 1
+        }
+
+
